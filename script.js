@@ -1,41 +1,34 @@
-let rezim = "porovnani";
 let balicek = [];
 let vybranaKarta = null;
 let tazenaKarta = null;
+let rezim = "porovnani";
 
-window.nastavRezim = function (r) {
-  rezim = r;
-  novaHra
-  
+// ✅ GENEROVÁNÍ
 function generuj() {
   balicek = [];
 
   let vysledky = ["1/2", "1/3", "2/3", "3/4", "4/5"];
 
   vysledky.forEach(function (z) {
-
     let casti = z.split("/");
     let a = parseInt(casti[0]);
     let b = parseInt(casti[1]);
 
     for (let i = 1; i <= 4; i++) {
 
-      let priklad;
+      let priklad = "";
 
       if (rezim === "porovnani") {
         priklad = (a * i) + "/" + (b * i);
 
       } else if (rezim === "scitani") {
-        let x1 = a;
-        let y1 = b;
-        let x2 = i;
-        let y2 = b * i;
-
-        priklad = x1 + "/" + y1 + " + " + x2 + "/" + y2;
+        let c = i;
+        let d = b * i;
+        priklad = a + "/" + b + " + " + c + "/" + d;
 
       } else if (rezim === "mix") {
         if (Math.random() < 0.5) {
-          priklad = a + "/" + b + " + " + i + "/" + b*i;
+          priklad = a + "/" + b + " + " + i + "/" + (b*i);
         } else {
           priklad = (a*i) + "/" + (b*i) + " - " + a + "/" + b;
         }
@@ -54,7 +47,6 @@ function generuj() {
       });
 
     }
-
   });
 
   balicek.sort(function () {
@@ -62,6 +54,7 @@ function generuj() {
   });
 }
 
+// ✅ KARTA
 function vytvorKartu(text, vysledek) {
   let karta = document.createElement("div");
   karta.className = "karta";
@@ -80,6 +73,7 @@ function vytvorKartu(text, vysledek) {
   return karta;
 }
 
+// ✅ LÍZNOUT
 function lizniKartu() {
   if (balicek.length === 0) return;
 
@@ -90,7 +84,7 @@ function lizniKartu() {
   zona.appendChild(vytvorKartu(k.priklad, k.vysledek));
 }
 
-// ✅ SPOLEČNÁ FUNKCE PRO PŘESUN
+// ✅ PŘESUN
 function presun(sloupec, karta) {
 
   let puvodni = karta.parentElement;
@@ -120,13 +114,11 @@ function presun(sloupec, karta) {
   document.getElementById("aktualni-karta").innerHTML = "";
 }
 
+// ✅ INIT
 document.addEventListener("DOMContentLoaded", function () {
 
-  let sloupce = document.querySelectorAll(".sloupec");
+  document.querySelectorAll(".sloupec").forEach(function (sloupec) {
 
-  sloupce.forEach(function (sloupec) {
-
-    // ✅ drag pro PC
     sloupec.addEventListener("dragover", function (e) {
       e.preventDefault();
     });
@@ -137,7 +129,6 @@ document.addEventListener("DOMContentLoaded", function () {
       presun(sloupec, tazenaKarta);
     });
 
-    // ✅ klik pro mobil
     sloupec.addEventListener("click", function () {
       if (!vybranaKarta) return;
       presun(sloupec, vybranaKarta);
@@ -148,9 +139,13 @@ document.addEventListener("DOMContentLoaded", function () {
   generuj();
 });
 
+// ✅ REŽIMY
+window.nastavRezim = function (r) {
+  rezim = r;
+  novaHra();
+};
 
-// ✅ ✅ ✅ TLAČÍTKA (HLAVNÍ FIX)
-
+// ✅ KONTROLA
 window.zkontroluj = function () {
   document.querySelectorAll(".sloupec").forEach(function (sloupec) {
 
@@ -179,6 +174,7 @@ window.zkontroluj = function () {
   });
 };
 
+// ✅ NOVÁ HRA
 window.novaHra = function () {
 
   document.querySelectorAll(".sloupec").forEach(function (sloupec) {
