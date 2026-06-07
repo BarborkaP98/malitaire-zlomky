@@ -1,1 +1,46 @@
 
+body {
+   font-family: Arial;  margin: 0;
+  text-align: center;
+  background: radial-gradient(circle, #2e7d32, #1b5e20);
+  color: white;
+}
+
+.logo {
+  font-size: 40px;
+  margin: 20px;
+}
+
+.radek {
+  margin: 10px;
+}
+
+#aktualni-karta {
+  margin: 20px;
+}
+
+#sloupce {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 20px;
+}
+
+.sloupec {
+  width: 100px;
+  min-height: 200px;
+  background: #c8e6c9;
+  border: 2px dashed #2e7d32;
+  border-radius: 10px;
+  padding: 5px;
+}
+
+.karta {
+  background: white;
+  color: black;
+  padding: 8px;
+  margin: 5px 0;
+  border-radius: 8px;
+  cursor: pointer;
+  user-select: none;
+}
