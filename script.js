@@ -1,3 +1,4 @@
+let rezim = "porovnani";
 let balicek = [];
 let vybranaKarta = null;
 let tazenaKarta = null;
