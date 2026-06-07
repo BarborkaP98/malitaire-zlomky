@@ -44,3 +44,24 @@ body {
   cursor: pointer;
   user-select: none;
 }
+.zlomek {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 4px;
+}
+
+.zlomek span:first-child {
+  border-bottom: 2px solid black;
+  width: 100%;
+  text-align: center;
+}
+
+.zlomek span:last-child {
+  text-align: center;
+}
+
+.operator {
+  margin: 0 5px;
+  font-weight: bold;
+}
