@@ -3,7 +3,6 @@ let vybranaKarta = null;
 let tazenaKarta = null;
 let rezim = "porovnani";
 
-// ✅ GENEROVÁNÍ
 function generuj() {
   balicek = [];
 
@@ -16,30 +15,7 @@ function generuj() {
 
     for (let i = 1; i <= 4; i++) {
 
-      let priklad = "";
-
-      if (rezim === "porovnani") {
-        priklad = (a * i) + "/" + (b * i);
-
-      } else if (rezim === "scitani") {
-        let c = i;
-        let d = b * i;
-        priklad = a + "/" + b + " + " + c + "/" + d;
-
-      } else if (rezim === "mix") {
-        if (Math.random() < 0.5) {
-          priklad = a + "/" + b + " + " + i + "/" + (b*i);
-        } else {
-          priklad = (a*i) + "/" + (b*i) + " - " + a + "/" + b;
-        }
-
-      } else if (rezim === "nasobeni") {
-        if (Math.random() < 0.5) {
-          priklad = a + "/" + b + " × " + i + "/1";
-        } else {
-          priklad = (a*i) + "/" + (b*i) + " ÷ " + i + "/1";
-        }
-      }
+      let priklad = (a * i) + "/" + (b * i);
 
       balicek.push({
         priklad: priklad,
@@ -53,42 +29,7 @@ function generuj() {
     return Math.random() - 0.5;
   });
 }
-function prevedZlomek(text) {
 
-  function udelejZlomek(a, b) {
-    return `
-      <div class="zlomek">
-        <span class="nahore">${a}</span>
-        <span class="dole">${b}</span>
-      </div>
-    `;
-  }
-
-  // jednoduchý zlomek
-  if (!text.includes(" ")) {
-    let p = text.split("/");
-    return udelejZlomek(p[0], p[1]);
-  }
-
-  // příklad s operátorem
-  let casti = text.split(" ");
-  let vystup = "";
-
-  casti.forEach(function (c) {
-
-    if (c.includes("/")) {
-      let p = c.split("/");
-      vystup += udelejZlomek(p[0], p[1]);
-    } else {
-      vystup += `<span class="operator">${c}</span>`;
-    }
-
-  });
-
-  return vystup;
-}
-}
-// ✅ KARTA
 function vytvorKartu(text, vysledek) {
   let karta = document.createElement("div");
   karta.className = "karta";
@@ -107,7 +48,6 @@ function vytvorKartu(text, vysledek) {
   return karta;
 }
 
-// ✅ LÍZNOUT
 function lizniKartu() {
   if (balicek.length === 0) return;
 
@@ -118,7 +58,6 @@ function lizniKartu() {
   zona.appendChild(vytvorKartu(k.priklad, k.vysledek));
 }
 
-// ✅ PŘESUN
 function presun(sloupec, karta) {
 
   let puvodni = karta.parentElement;
@@ -148,7 +87,6 @@ function presun(sloupec, karta) {
   document.getElementById("aktualni-karta").innerHTML = "";
 }
 
-// ✅ INIT
 document.addEventListener("DOMContentLoaded", function () {
 
   document.querySelectorAll(".sloupec").forEach(function (sloupec) {
@@ -173,13 +111,7 @@ document.addEventListener("DOMContentLoaded", function () {
   generuj();
 });
 
-// ✅ REŽIMY
-window.nastavRezim = function (r) {
-  rezim = r;
-  novaHra();
-};
-
-// ✅ KONTROLA
+// ✅ tlačítka
 window.zkontroluj = function () {
   document.querySelectorAll(".sloupec").forEach(function (sloupec) {
 
@@ -208,7 +140,6 @@ window.zkontroluj = function () {
   });
 };
 
-// ✅ NOVÁ HRA
 window.novaHra = function () {
 
   document.querySelectorAll(".sloupec").forEach(function (sloupec) {
