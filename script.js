@@ -32,12 +32,10 @@ function vytvorKartu(text, vysledek) {
   karta.dataset.v = vysledek;
   karta.draggable = true;
 
-  // ✅ PC drag
   karta.addEventListener("dragstart", function () {
     tazenaKarta = karta;
   });
 
-  // ✅ mobil klik
   karta.addEventListener("click", function () {
     vybranaKarta = karta;
   });
@@ -60,7 +58,6 @@ function presun(sloupec, karta) {
 
   let puvodni = karta.parentElement;
 
-  // uklid původního sloupce
   if (puvodni && puvodni.classList.contains("sloupec")) {
     let karty = puvodni.querySelectorAll(".karta");
 
@@ -71,7 +68,6 @@ function presun(sloupec, karta) {
     }
   }
 
-  // nový sloupec prázdný → přidej nadpis
   if (sloupec.querySelectorAll(".karta").length === 0) {
     let nadpis = document.createElement("div");
     nadpis.innerText = karta.dataset.v;
@@ -93,19 +89,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
   sloupce.forEach(function (sloupec) {
 
-    // ✅ drag over (PC)
+    // ✅ drag pro PC
     sloupec.addEventListener("dragover", function (e) {
       e.preventDefault();
     });
 
-    // ✅ drop (PC)
     sloupec.addEventListener("drop", function (e) {
       e.preventDefault();
       if (!tazenaKarta) return;
       presun(sloupec, tazenaKarta);
     });
 
-    // ✅ klik (mobil)
+    // ✅ klik pro mobil
     sloupec.addEventListener("click", function () {
       if (!vybranaKarta) return;
       presun(sloupec, vybranaKarta);
@@ -115,13 +110,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
   generuj();
 });
-function zkontroluj() {
+
+
+// ✅ ✅ ✅ TLAČÍTKA (HLAVNÍ FIX)
+
+window.zkontroluj = function () {
   document.querySelectorAll(".sloupec").forEach(function (sloupec) {
 
     let karty = sloupec.querySelectorAll(".karta");
 
     if (karty.length === 0) {
-      sloupec.style.background = "#ffcdd2"; // červená
+      sloupec.style.background = "#ffcdd2";
       return;
     }
 
@@ -133,26 +132,24 @@ function zkontroluj() {
     });
 
     if (ok && karty.length === 4) {
-      sloupec.style.background = "#c8e6c9"; // zelená ✅
+      sloupec.style.background = "#c8e6c9";
     } else if (ok) {
-      sloupec.style.background = "#ffe082"; // žlutá ⚠️
+      sloupec.style.background = "#ffe082";
     } else {
-      sloupec.style.background = "#ffcdd2"; // červená ❌
+      sloupec.style.background = "#ffcdd2";
     }
 
   });
-}
-function novaHra() {
+};
 
-  // vymaž sloupce
+window.novaHra = function () {
+
   document.querySelectorAll(".sloupec").forEach(function (sloupec) {
     sloupec.innerHTML = "";
     sloupec.style.background = "#c8e6c9";
   });
 
-  // vymaž horní kartu
   document.getElementById("aktualni-karta").innerHTML = "";
 
-  // nové karty
   generuj();
-}
+};
