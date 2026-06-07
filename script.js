@@ -115,3 +115,44 @@ document.addEventListener("DOMContentLoaded", function () {
 
   generuj();
 });
+function zkontroluj() {
+  document.querySelectorAll(".sloupec").forEach(function (sloupec) {
+
+    let karty = sloupec.querySelectorAll(".karta");
+
+    if (karty.length === 0) {
+      sloupec.style.background = "#ffcdd2"; // červená
+      return;
+    }
+
+    let v = karty[0].dataset.v;
+    let ok = true;
+
+    karty.forEach(function (karta) {
+      if (karta.dataset.v !== v) ok = false;
+    });
+
+    if (ok && karty.length === 4) {
+      sloupec.style.background = "#c8e6c9"; // zelená ✅
+    } else if (ok) {
+      sloupec.style.background = "#ffe082"; // žlutá ⚠️
+    } else {
+      sloupec.style.background = "#ffcdd2"; // červená ❌
+    }
+
+  });
+}
+function novaHra() {
+
+  // vymaž sloupce
+  document.querySelectorAll(".sloupec").forEach(function (sloupec) {
+    sloupec.innerHTML = "";
+    sloupec.style.background = "#c8e6c9";
+  });
+
+  // vymaž horní kartu
+  document.getElementById("aktualni-karta").innerHTML = "";
+
+  // nové karty
+  generuj();
+}
