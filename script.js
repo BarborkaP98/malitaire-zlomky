@@ -1,5 +1,6 @@
 let balicek = [];
 let vybranaKarta = null;
+let tazenaKarta = null;
 
 function generuj() {
   balicek = [];
@@ -7,7 +8,6 @@ function generuj() {
   let zaklady = ["1/2", "1/3", "2/3", "3/4", "4/5"];
 
   zaklady.forEach(function (z) {
-
     let casti = z.split("/");
     let a = parseInt(casti[0]);
     let b = parseInt(casti[1]);
@@ -18,10 +18,8 @@ function generuj() {
         vysledek: z
       });
     }
-
   });
 
-  // zamíchání
   balicek.sort(function () {
     return Math.random() - 0.5;
   });
@@ -32,7 +30,14 @@ function vytvorKartu(text, vysledek) {
   karta.className = "karta";
   karta.innerText = text;
   karta.dataset.v = vysledek;
+  karta.draggable = true;
 
+  // ✅ PC drag
+  karta.addEventListener("dragstart", function () {
+    tazenaKarta = karta;
+  });
+
+  // ✅ mobil klik
   karta.addEventListener("click", function () {
     vybranaKarta = karta;
   });
@@ -50,22 +55,23 @@ function lizniKartu() {
   zona.appendChild(vytvorKartu(k.priklad, k.vysledek));
 }
 
-function vlozKartu(sloupec, karta) {
-  let puvodniSloupec = karta.parentElement;
+// ✅ SPOLEČNÁ FUNKCE PRO PŘESUN
+function presun(sloupec, karta) {
 
-  // ✅ úklid původního sloupce
-  if (puvodniSloupec && puvodniSloupec.classList.contains("sloupec")) {
+  let puvodni = karta.parentElement;
 
-    let karty = puvodniSloupec.querySelectorAll(".karta");
+  // uklid původního sloupce
+  if (puvodni && puvodni.classList.contains("sloupec")) {
+    let karty = puvodni.querySelectorAll(".karta");
 
     if (karty.length === 1) {
-      puvodniSloupec.innerHTML = ""; // smaže nadpis i kartu
+      puvodni.innerHTML = "";
     } else {
-      karta.remove(); // smaže jen kartu
+      karta.remove();
     }
   }
 
-  // ✅ nový sloupec – pokud prázdný
+  // nový sloupec prázdný → přidej nadpis
   if (sloupec.querySelectorAll(".karta").length === 0) {
     let nadpis = document.createElement("div");
     nadpis.innerText = karta.dataset.v;
@@ -73,11 +79,11 @@ function vlozKartu(sloupec, karta) {
     sloupec.appendChild(nadpis);
   }
 
-  // ✅ vložení
   sloupec.appendChild(karta);
 
-  // ✅ reset
   vybranaKarta = null;
+  tazenaKarta = null;
+
   document.getElementById("aktualni-karta").innerHTML = "";
 }
 
@@ -87,10 +93,22 @@ document.addEventListener("DOMContentLoaded", function () {
 
   sloupce.forEach(function (sloupec) {
 
+    // ✅ drag over (PC)
+    sloupec.addEventListener("dragover", function (e) {
+      e.preventDefault();
+    });
+
+    // ✅ drop (PC)
+    sloupec.addEventListener("drop", function (e) {
+      e.preventDefault();
+      if (!tazenaKarta) return;
+      presun(sloupec, tazenaKarta);
+    });
+
+    // ✅ klik (mobil)
     sloupec.addEventListener("click", function () {
       if (!vybranaKarta) return;
-
-      vlozKartu(sloupec, vybranaKarta);
+      presun(sloupec, vybranaKarta);
     });
 
   });
