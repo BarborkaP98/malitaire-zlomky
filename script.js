@@ -175,3 +175,7 @@ window.novaHra = function () {
 
   generuj();
 };
+window.nastavRezim = function (r) {
+  rezim = r;
+  novaHra();
+};
