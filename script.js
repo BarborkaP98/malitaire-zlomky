@@ -63,9 +63,9 @@ function generuj() {
 
       } else if (rezim === "nasobeni") {
         if (Math.random() < 0.5) {
-          priklad = a + "/" + b + " × " + i + "/1";
+         priklad = a + "/" + (b * i) + " × " + i + "/1";
         } else {
-          priklad = (a*i) + "/" + (b*i) + " ÷ " + i + "/1";
+         priklad = (a*i) + "/" + b + " ÷ " + i + "/1";
         }
       }
 
