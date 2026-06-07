@@ -53,12 +53,49 @@ function generuj() {
     return Math.random() - 0.5;
   });
 }
+function prevedZlomek(text) {
 
+  // pokud je jen zlomek (např. 2/3)
+  if (!text.includes(" ")) {
+    let parts = text.split("/");
+
+    return `
+      <div class="zlomek">
+        <span>${parts[0]}</span>
+        <span>${parts[1]}</span>
+      </div>
+    `;
+  }
+
+  // pokud je příklad (např. 1/2 + 1/4)
+  let casti = text.split(" ");
+
+  let vystup = "";
+
+  casti.forEach(function (c) {
+
+    if (c.includes("/")) {
+      let p = c.split("/");
+
+      vystup += `
+        <div class="zlomek">
+          <span>${p[0]}</span>
+          <span>${p[1]}</span>
+        </div>
+      `;
+    } else {
+      vystup += `<span class="operator">${c}</span>`;
+    }
+
+  });
+
+  return vystup;
+}
 // ✅ KARTA
 function vytvorKartu(text, vysledek) {
   let karta = document.createElement("div");
   karta.className = "karta";
-  karta.innerText = text;
+  karta.innerHTML = prevedZlomek(text);
   karta.dataset.v = vysledek;
   karta.draggable = true;
 
