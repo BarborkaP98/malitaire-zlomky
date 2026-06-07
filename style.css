@@ -50,18 +50,18 @@ body {
   margin: 0 6px;
 }
 
-.zlomek .nahore {
+.horni {
   display: block;
   border-bottom: 2px solid black;
-  padding: 0 4px;
+  font-weight: bold;
 }
 
-.zlomek .dole {
+.dolni {
   display: block;
-  padding: 0 4px;
 }
 
-.operator {
+.op {
   margin: 0 6px;
   font-weight: bold;
 }
+
