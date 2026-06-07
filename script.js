@@ -55,34 +55,30 @@ function generuj() {
 }
 function prevedZlomek(text) {
 
-  // pokud je jen zlomek (např. 2/3)
-  if (!text.includes(" ")) {
-    let parts = text.split("/");
-
+  function udelejZlomek(a, b) {
     return `
       <div class="zlomek">
-        <span>${parts[0]}</span>
-        <span>${parts[1]}</span>
+        <span class="nahore">${a}</span>
+        <span class="dole">${b}</span>
       </div>
     `;
   }
 
-  // pokud je příklad (např. 1/2 + 1/4)
-  let casti = text.split(" ");
+  // jednoduchý zlomek
+  if (!text.includes(" ")) {
+    let p = text.split("/");
+    return udelejZlomek(p[0], p[1]);
+  }
 
+  // příklad s operátorem
+  let casti = text.split(" ");
   let vystup = "";
 
   casti.forEach(function (c) {
 
     if (c.includes("/")) {
       let p = c.split("/");
-
-      vystup += `
-        <div class="zlomek">
-          <span>${p[0]}</span>
-          <span>${p[1]}</span>
-        </div>
-      `;
+      vystup += udelejZlomek(p[0], p[1]);
     } else {
       vystup += `<span class="operator">${c}</span>`;
     }
@@ -90,6 +86,7 @@ function prevedZlomek(text) {
   });
 
   return vystup;
+}
 }
 // ✅ KARTA
 function vytvorKartu(text, vysledek) {
