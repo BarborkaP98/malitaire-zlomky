@@ -36,37 +36,45 @@ body {
   padding: 5px;
 }
 
+
+/* ✅ ZLOMKY (OPRAVENO) */
 .karta {
   background: white;
   color: black;
-  padding: 8px;
+  padding: 10px;
   margin: 5px 0;
   border-radius: 8px;
   cursor: pointer;
   user-select: none;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
 }
 
-/* ✅ ZLOMKY (OPRAVENO) */
-
+/* ✅ ZLOMEK */
 .zlomek {
-  display: inline-block;
-  text-align: center;
-  margin: 0 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .horni {
-  display: block;
   border-bottom: 2px solid black;
+  padding: 0 6px;
   font-weight: bold;
-  padding: 0 4px;
 }
 
 .dolni {
-  display: block;
-  padding: 0 4px;
+  padding: 0 6px;
 }
 
+/* ✅ OPERÁTOR */
 .op {
-  margin: 0 6px;
   font-weight: bold;
+  display: flex;
+  align-items: center;
 }
+
