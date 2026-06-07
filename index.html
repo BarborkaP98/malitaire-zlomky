@@ -1,25 +1,27 @@
 <!DOCTYPE html>
-<html lang="csmeta charset="UTF-8"><html lang="cs">
-  <title>MALITAIRE – Zlomky</title>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <title>MALITAIRE – ZLOMKY</title>
 
   <link rel="stylesheet" href="style.css">
   <script src="script.js" defer></script>
-<head>
+</head>
 
 <body>
 
 <h1 class="logo">MALITAIRE – ZLOMKY</h1>
 
-
-<div id="aktualni-karta"></div>
-  
+<!-- režimy -->
 <div class="radek">
   <button onclick="nastavRezim('porovnani')">Porovnání</button>
   <button onclick="nastavRezim('scitani')">+</button>
   <button onclick="nastavRezim('mix')">+ −</button>
   <button onclick="nastavRezim('nasobeni')">× ÷</button>
 </div>
-  
+
+<div id="aktualni-karta"></div>
+
 <div id="sloupce">
   <div class="sloupec"></div>
   <div class="sloupec"></div>
@@ -27,12 +29,12 @@
   <div class="sloupec"></div>
   <div class="sloupec"></div>
 </div>
-  <div class="radek">
-   <button onclick="lizniKartu()">Lízni kartu</button>
-   <button onclick="zkontroluj()">Zkontroluj</button>
-   <button onclick="novaHra()">Nová hra</button>
+
+<div class="radek">
+  <button onclick="lizniKartu()">Lízni kartu</button>
+  <button onclick="zkontroluj()">Zkontroluj</button>
+  <button onclick="novaHra()">Nová hra</button>
 </div>
+
 </body>
 </html>
-</head>
-
