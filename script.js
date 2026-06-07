@@ -1,5 +1,5 @@
-
-let balicek = [];let balicekarta = null;
+let balicek = [];
+let vybranaKarta = null;
 
 function generuj() {
   balicek = [];
@@ -21,6 +21,7 @@ function generuj() {
 
   });
 
+  // zamíchání
   balicek.sort(function () {
     return Math.random() - 0.5;
   });
@@ -49,38 +50,48 @@ function lizniKartu() {
   zona.appendChild(vytvorKartu(k.priklad, k.vysledek));
 }
 
+function vlozKartu(sloupec, karta) {
+  let puvodniSloupec = karta.parentElement;
+
+  // ✅ úklid původního sloupce
+  if (puvodniSloupec && puvodniSloupec.classList.contains("sloupec")) {
+
+    let karty = puvodniSloupec.querySelectorAll(".karta");
+
+    if (karty.length === 1) {
+      puvodniSloupec.innerHTML = ""; // smaže nadpis i kartu
+    } else {
+      karta.remove(); // smaže jen kartu
+    }
+  }
+
+  // ✅ nový sloupec – pokud prázdný
+  if (sloupec.querySelectorAll(".karta").length === 0) {
+    let nadpis = document.createElement("div");
+    nadpis.innerText = karta.dataset.v;
+    nadpis.style.fontWeight = "bold";
+    sloupec.appendChild(nadpis);
+  }
+
+  // ✅ vložení
+  sloupec.appendChild(karta);
+
+  // ✅ reset
+  vybranaKarta = null;
+  document.getElementById("aktualni-karta").innerHTML = "";
+}
+
 document.addEventListener("DOMContentLoaded", function () {
 
   let sloupce = document.querySelectorAll(".sloupec");
 
   sloupce.forEach(function (sloupec) {
 
-   sloupec.addEventListener("click", function () {
-  if (!vybranaKarta) return;
+    sloupec.addEventListener("click", function () {
+      if (!vybranaKarta) return;
 
-  let puvodniSloupec = vybranaKarta.parentElement;
-
-  // ✅ odstraní nadpis, pokud byl poslední
-  if (puvodniSloupec && puvodniSloupec.classList.contains("sloupec")) {
-    let karty = puvodniSloupec.querySelectorAll(".karta");
-    if (karty.length === 1) {
-      puvodniSloupec.innerHTML = "";
-    }
-  }
-
-  // ✅ nový sloupec (prázdný)
-  if (sloupec.querySelectorAll(".karta").length === 0) {
-    let nadpis = document.createElement("div");
-    nadpis.innerText = vybranaKarta.dataset.v;
-    nadpis.style.fontWeight = "bold";
-    sloupec.appendChild(nadpis);
-  }
-
-  sloupec.appendChild(vybranaKarta);
-  vybranaKarta = null;
-
-  document.getElementById("aktualni-karta").innerHTML = "";
-});
+      vlozKartu(sloupec, vybranaKarta);
+    });
 
   });
 
