@@ -53,11 +53,45 @@ function generuj() {
     return Math.random() - 0.5;
   });
 }
+function zobraz(text) {
+
+  function zlomek(a, b) {
+    return `
+      <div class="zlomek">
+        <span class="horni">${a}</span>
+        <span class="dolni">${b}</span>
+      </div>
+    `;
+  }
+
+  // pokud je jen zlomek
+  if (!text.includes(" ")) {
+    let p = text.split("/");
+    return zlomek(p[0], p[1]);
+  }
+
+  // příklad (např. 1/2 + 1/4)
+  let casti = text.split(" ");
+  let html = "";
+
+  casti.forEach(function (c) {
+
+    if (c.includes("/")) {
+      let p = c.split("/");
+      html += zlomek(p[0], p[1]);
+    } else {
+      html += `<span class="op">${c}</span>`;
+    }
+
+  });
+
+  return html;
+}
 
 function vytvorKartu(text, vysledek) {
   let karta = document.createElement("div");
   karta.className = "karta";
-  karta.innerText = text;
+  karta.innerHTML = zobraz(text);
   karta.dataset.v = vysledek;
   karta.draggable = true;
 
