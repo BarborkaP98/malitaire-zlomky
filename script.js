@@ -106,11 +106,15 @@ function vytvorKartu(text, vysledek) {
 
 // ✅ LÍZNUTÍ
 function lizniKartu() {
-  if (balicek.length === 0) return;
+  let zona = document.getElementById("aktualni-karta");
+
+  if (balicek.length === 0) {
+    zona.innerHTML = "<b>Konec hry ✅</b>";
+    return;
+  }
 
   let k = balicek.pop();
 
-  let zona = document.getElementById("aktualni-karta");
   zona.innerHTML = "";
   zona.appendChild(vytvorKartu(k.priklad, k.vysledek));
 }
