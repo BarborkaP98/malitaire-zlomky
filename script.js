@@ -55,21 +55,32 @@ document.addEventListener("DOMContentLoaded", function () {
 
   sloupce.forEach(function (sloupec) {
 
-    sloupec.addEventListener("click", function () {
-      if (!vybranaKarta) return;
+   sloupec.addEventListener("click", function () {
+  if (!vybranaKarta) return;
 
-      if (sloupec.children.length === 0) {
-        let nadpis = document.createElement("div");
-        nadpis.innerText = vybranaKarta.dataset.v;
-        nadpis.style.fontWeight = "bold";
-        sloupec.appendChild(nadpis);
-      }
+  let puvodniSloupec = vybranaKarta.parentElement;
 
-      sloupec.appendChild(vybranaKarta);
-      vybranaKarta = null;
+  // ✅ odstraní nadpis, pokud byl poslední
+  if (puvodniSloupec && puvodniSloupec.classList.contains("sloupec")) {
+    let karty = puvodniSloupec.querySelectorAll(".karta");
+    if (karty.length === 1) {
+      puvodniSloupec.innerHTML = "";
+    }
+  }
 
-      document.getElementById("aktualni-karta").innerHTML = "";
-    });
+  // ✅ nový sloupec (prázdný)
+  if (sloupec.querySelectorAll(".karta").length === 0) {
+    let nadpis = document.createElement("div");
+    nadpis.innerText = vybranaKarta.dataset.v;
+    nadpis.style.fontWeight = "bold";
+    sloupec.appendChild(nadpis);
+  }
+
+  sloupec.appendChild(vybranaKarta);
+  vybranaKarta = null;
+
+  document.getElementById("aktualni-karta").innerHTML = "";
+});
 
   });
 
