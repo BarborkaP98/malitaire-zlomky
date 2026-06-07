@@ -9,19 +9,43 @@ function generuj() {
   let vysledky = ["1/2", "1/3", "2/3", "3/4", "4/5"];
 
   vysledky.forEach(function (z) {
+
     let casti = z.split("/");
     let a = parseInt(casti[0]);
     let b = parseInt(casti[1]);
 
     for (let i = 1; i <= 4; i++) {
 
-      let priklad = (a * i) + "/" + (b * i);
+      let priklad = "";
+
+      if (rezim === "porovnani") {
+        priklad = (a * i) + "/" + (b * i);
+
+      } else if (rezim === "scitani") {
+        let c = i;
+        let d = b * i;
+
+        priklad = a + "/" + b + " + " + c + "/" + d;
+
+      } else if (rezim === "mix") {
+        if (Math.random() < 0.5) {
+          priklad = a + "/" + b + " + " + i + "/" + (b*i);
+        } else {
+          priklad = (a*i) + "/" + (b*i) + " - " + a + "/" + b;
+        }
+
+      } else if (rezim === "nasobeni") {
+        if (Math.random() < 0.5) {
+          priklad = a + "/" + b + " × " + i + "/1";
+        } else {
+          priklad = (a*i) + "/" + (b*i) + " ÷ " + i + "/1";
+        }
+      }
 
       balicek.push({
         priklad: priklad,
         vysledek: z
       });
-
     }
   });
 
