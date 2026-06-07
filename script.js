@@ -3,22 +3,58 @@ let balicek = [];
 let vybranaKarta = null;
 let tazenaKarta = null;
 
+window.nastavRezim = function (r) {
+  rezim = r;
+  novaHra
+  
 function generuj() {
   balicek = [];
 
-  let zaklady = ["1/2", "1/3", "2/3", "3/4", "4/5"];
+  let vysledky = ["1/2", "1/3", "2/3", "3/4", "4/5"];
 
-  zaklady.forEach(function (z) {
+  vysledky.forEach(function (z) {
+
     let casti = z.split("/");
     let a = parseInt(casti[0]);
     let b = parseInt(casti[1]);
 
     for (let i = 1; i <= 4; i++) {
+
+      let priklad;
+
+      if (rezim === "porovnani") {
+        priklad = (a * i) + "/" + (b * i);
+
+      } else if (rezim === "scitani") {
+        let x1 = a;
+        let y1 = b;
+        let x2 = i;
+        let y2 = b * i;
+
+        priklad = x1 + "/" + y1 + " + " + x2 + "/" + y2;
+
+      } else if (rezim === "mix") {
+        if (Math.random() < 0.5) {
+          priklad = a + "/" + b + " + " + i + "/" + b*i;
+        } else {
+          priklad = (a*i) + "/" + (b*i) + " - " + a + "/" + b;
+        }
+
+      } else if (rezim === "nasobeni") {
+        if (Math.random() < 0.5) {
+          priklad = a + "/" + b + " × " + i + "/1";
+        } else {
+          priklad = (a*i) + "/" + (b*i) + " ÷ " + i + "/1";
+        }
+      }
+
       balicek.push({
-        priklad: (a * i) + "/" + (b * i),
+        priklad: priklad,
         vysledek: z
       });
+
     }
+
   });
 
   balicek.sort(function () {
