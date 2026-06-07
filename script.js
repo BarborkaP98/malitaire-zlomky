@@ -92,7 +92,7 @@ function prevedZlomek(text) {
 function vytvorKartu(text, vysledek) {
   let karta = document.createElement("div");
   karta.className = "karta";
-  karta.innerHTML = prevedZlomek(text);
+  karta.innerText = text;
   karta.dataset.v = vysledek;
   karta.draggable = true;
 
