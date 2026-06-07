@@ -3,6 +3,36 @@ let vybranaKarta = null;
 let tazenaKarta = null;
 let rezim = "porovnani";
 
+// ✅ ZOBRAZENÍ ZLOMKŮ (OPRAVENO)
+function zobraz(text) {
+
+  function zlomek(a, b) {
+    return `
+      <div class="zlomek">
+        <div class="horni">${a}</div>
+        <div class="dolni">${b}</div>
+      </div>
+    `;
+  }
+
+  let casti = text.split(" ");
+  let html = "";
+
+  casti.forEach(function (c) {
+
+    if (c.includes("/")) {
+      let p = c.split("/");
+      html += zlomek(p[0], p[1]);
+    } else {
+      html += `<span class="op">${c}</span>`;
+    }
+
+  });
+
+  return html;
+}
+
+// ✅ GENEROVÁNÍ
 function generuj() {
   balicek = [];
 
@@ -22,10 +52,7 @@ function generuj() {
         priklad = (a * i) + "/" + (b * i);
 
       } else if (rezim === "scitani") {
-        let c = i;
-        let d = b * i;
-
-        priklad = a + "/" + b + " + " + c + "/" + d;
+        priklad = a + "/" + b + " + " + i + "/" + (b*i);
 
       } else if (rezim === "mix") {
         if (Math.random() < 0.5) {
@@ -46,6 +73,7 @@ function generuj() {
         priklad: priklad,
         vysledek: z
       });
+
     }
   });
 
@@ -53,45 +81,15 @@ function generuj() {
     return Math.random() - 0.5;
   });
 }
-function zobraz(text) {
 
-  function zlomek(a, b) {
-    return `
-      <div class="zlomek">
-        <span class="horni">${a}</span>
-        <span class="dolni">${b}</span>
-      </div>
-    `;
-  }
-
-  // pokud je jen zlomek
-  if (!text.includes(" ")) {
-    let p = text.split("/");
-    return zlomek(p[0], p[1]);
-  }
-
-  // příklad (např. 1/2 + 1/4)
-  let casti = text.split(" ");
-  let html = "";
-
-  casti.forEach(function (c) {
-
-    if (c.includes("/")) {
-      let p = c.split("/");
-      html += zlomek(p[0], p[1]);
-    } else {
-      html += `<span class="op">${c}</span>`;
-    }
-
-  });
-
-  return html;
-}
-
+// ✅ KARTA
 function vytvorKartu(text, vysledek) {
   let karta = document.createElement("div");
   karta.className = "karta";
+
+  // ✅ TADY JE KLÍČOVÁ OPRAVA
   karta.innerHTML = zobraz(text);
+
   karta.dataset.v = vysledek;
   karta.draggable = true;
 
@@ -106,6 +104,7 @@ function vytvorKartu(text, vysledek) {
   return karta;
 }
 
+// ✅ LÍZNUTÍ
 function lizniKartu() {
   if (balicek.length === 0) return;
 
@@ -116,6 +115,7 @@ function lizniKartu() {
   zona.appendChild(vytvorKartu(k.priklad, k.vysledek));
 }
 
+// ✅ PŘESUN
 function presun(sloupec, karta) {
 
   let puvodni = karta.parentElement;
@@ -145,6 +145,7 @@ function presun(sloupec, karta) {
   document.getElementById("aktualni-karta").innerHTML = "";
 }
 
+// ✅ INIT
 document.addEventListener("DOMContentLoaded", function () {
 
   document.querySelectorAll(".sloupec").forEach(function (sloupec) {
@@ -169,7 +170,12 @@ document.addEventListener("DOMContentLoaded", function () {
   generuj();
 });
 
-// ✅ tlačítka
+// ✅ FUNKCE PRO TLAČÍTKA
+window.nastavRezim = function (r) {
+  rezim = r;
+  novaHra();
+};
+
 window.zkontroluj = function () {
   document.querySelectorAll(".sloupec").forEach(function (sloupec) {
 
@@ -208,8 +214,4 @@ window.novaHra = function () {
   document.getElementById("aktualni-karta").innerHTML = "";
 
   generuj();
-};
-window.nastavRezim = function (r) {
-  rezim = r;
-  novaHra();
 };
