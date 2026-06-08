@@ -34,7 +34,22 @@ function zobraz(text) {
 function generuj() {
   balicek = [];
 
-  let vysledky = ["1/2", "1/3", "2/3", "3/4", "4/5", "1/5", "1/4", "2/5", "3/5", "1/6", "1/8", "5/6"];
+ let vsechny = [
+  "1/2", "1/3", "2/3", "3/4", "4/5",
+  "1/5", "1/4", "2/5", "3/5",
+  "1/6", "1/8", "5/6"
+];
+
+// ✅ vyber náhodných 5
+let vysledky = [];
+
+while (vysledky.length < 5) {
+  let rnd = vsechny[Math.floor(Math.random() * vsechny.length)];
+
+  if (!vysledky.includes(rnd)) {
+    vysledky.push(rnd);
+  }
+}
 
   vysledky.forEach(function (z) {
 
