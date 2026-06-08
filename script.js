@@ -52,21 +52,32 @@ function generuj() {
         priklad = (a * i) + "/" + (b * i);
 
       } else if (rezim === "scitani") {
-        let x = i;
-let y = b * i;
 
-let druhy = a*y - x*b;
+  let jmen = b * i;
 
-priklad = x + "/" + y + " + " + druhy + "/" + y;
+  let cit1 = Math.floor(Math.random() * (a * i));
+  let cit2 = (a * i) - cit1;
 
+  priklad = cit1 + "/" + jmen + " + " + cit2 + "/" + jmen;
+}
 
-      } else if (rezim === "mix") {
-        if (Math.random() < 0.5) {
-          priklad = a + "/" + b + " + " + i + "/" + (b*i);
-        } else {
-          priklad = (a*i) + "/" + (b*i) + " - " + a + "/" + b;
-        }
+     } else if (rezim === "mix") {
 
+  let jmen = b * i;
+
+  if (Math.random() < 0.5) {
+    let cit1 = Math.floor(Math.random() * (a * i));
+    let cit2 = (a * i) - cit1;
+
+    priklad = cit1 + "/" + jmen + " + " + cit2 + "/" + jmen;
+
+  } else {
+    let cit1 = (a * i);
+    let cit2 = Math.floor(Math.random() * cit1);
+
+    priklad = cit1 + "/" + jmen + " - " + cit2 + "/" + jmen;
+  }
+}
       } else if (rezim === "nasobeni") {
         if (Math.random() < 0.5) {
          priklad = a + "/" + (b * i) + " × " + i + "/1";
