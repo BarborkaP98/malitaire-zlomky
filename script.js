@@ -52,7 +52,13 @@ function generuj() {
         priklad = (a * i) + "/" + (b * i);
 
       } else if (rezim === "scitani") {
-        priklad = a + "/" + b + " + " + i + "/" + (b*i);
+        let x = i;
+let y = b * i;
+
+let druhy = a*y - x*b;
+
+priklad = x + "/" + y + " + " + druhy + "/" + y;
+
 
       } else if (rezim === "mix") {
         if (Math.random() < 0.5) {
