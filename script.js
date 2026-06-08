@@ -234,7 +234,7 @@ window.zkontroluj = function () {
     });
 
     if (ok && karty.length === 4) {
-      sloupec.style.background = "#c8e6c9";
+      sloupec.style.background = "#66bb6a";
     } else if (ok) {
       sloupec.style.background = "#ffe082";
     } else {
