@@ -34,7 +34,7 @@ function zobraz(text) {
 function generuj() {
   balicek = [];
 
-  let vysledky = ["1/2", "1/3", "2/3", "3/4", "4/5"];
+  let vysledky = ["1/2", "1/3", "2/3", "3/4", "4/5", "1/5", "1/4", "2/5", "3/5", "1/6", "1/8", "5/6"];
 
   vysledky.forEach(function (z) {
 
