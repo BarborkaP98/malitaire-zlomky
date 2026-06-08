@@ -3,7 +3,7 @@ let vybranaKarta = null;
 let tazenaKarta = null;
 let rezim = "porovnani";
 
-// ✅ ZOBRAZENÍ ZLOMKŮ (OPRAVENO)
+// ✅ ZOBRAZENÍ ZLOMKŮ
 function zobraz(text) {
 
   function zlomek(a, b) {
@@ -19,14 +19,12 @@ function zobraz(text) {
   let html = "";
 
   casti.forEach(function (c) {
-
     if (c.includes("/")) {
       let p = c.split("/");
       html += zlomek(p[0], p[1]);
     } else {
       html += `<span class="op">${c}</span>`;
     }
-
   });
 
   return html;
@@ -53,36 +51,39 @@ function generuj() {
 
       } else if (rezim === "scitani") {
 
-  let jmen = b * i;
+        // ✅ OPRAVA – stejné jmenovatele
+        let jmen = b * i;
 
-  let cit1 = Math.floor(Math.random() * (a * i));
-  let cit2 = (a * i) - cit1;
+        let cit1 = 1;
+        let cit2 = (a * i) - cit1;
 
-  priklad = cit1 + "/" + jmen + " + " + cit2 + "/" + jmen;
-}
+        priklad = cit1 + "/" + jmen + " + " + cit2 + "/" + jmen;
 
-     } else if (rezim === "mix") {
+      } else if (rezim === "mix") {
 
-  let jmen = b * i;
+        let jmen = b * i;
 
-  if (Math.random() < 0.5) {
-    let cit1 = Math.floor(Math.random() * (a * i));
-    let cit2 = (a * i) - cit1;
-
-    priklad = cit1 + "/" + jmen + " + " + cit2 + "/" + jmen;
-
-  } else {
-    let cit1 = (a * i);
-    let cit2 = Math.floor(Math.random() * cit1);
-
-    priklad = cit1 + "/" + jmen + " - " + cit2 + "/" + jmen;
-  }
-}
-      } else if (rezim === "nasobeni") {
         if (Math.random() < 0.5) {
-         priklad = a + "/" + (b * i) + " × " + i + "/1";
+
+          let cit1 = 1;
+          let cit2 = (a * i) - cit1;
+
+          priklad = cit1 + "/" + jmen + " + " + cit2 + "/" + jmen;
+
         } else {
-         priklad = (a*i) + "/" + b + " ÷ " + i + "/1";
+
+          let cit1 = a * i;
+          let cit2 = Math.floor(cit1 / 2);
+
+          priklad = cit1 + "/" + jmen + " - " + cit2 + "/" + jmen;
+        }
+
+      } else if (rezim === "nasobeni") {
+
+        if (Math.random() < 0.5) {
+          priklad = a + "/" + (b*i) + " × " + i + "/1";
+        } else {
+          priklad = (a*i) + "/" + b + " ÷ " + i + "/1";
         }
       }
 
@@ -104,7 +105,6 @@ function vytvorKartu(text, vysledek) {
   let karta = document.createElement("div");
   karta.className = "karta";
 
-  // ✅ TADY JE KLÍČOVÁ OPRAVA
   karta.innerHTML = zobraz(text);
 
   karta.dataset.v = vysledek;
@@ -121,7 +121,7 @@ function vytvorKartu(text, vysledek) {
   return karta;
 }
 
-// ✅ LÍZNUTÍ
+// ✅ LÍZNOUT
 function lizniKartu() {
   let zona = document.getElementById("aktualni-karta");
 
@@ -191,12 +191,13 @@ document.addEventListener("DOMContentLoaded", function () {
   generuj();
 });
 
-// ✅ FUNKCE PRO TLAČÍTKA
+// ✅ REŽIMY
 window.nastavRezim = function (r) {
   rezim = r;
   novaHra();
 };
 
+// ✅ KONTROLA
 window.zkontroluj = function () {
   document.querySelectorAll(".sloupec").forEach(function (sloupec) {
 
@@ -225,6 +226,7 @@ window.zkontroluj = function () {
   });
 };
 
+// ✅ NOVÁ HRA
 window.novaHra = function () {
 
   document.querySelectorAll(".sloupec").forEach(function (sloupec) {
