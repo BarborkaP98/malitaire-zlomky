@@ -51,7 +51,7 @@ function generuj() {
 
       } else if (rezim === "scitani") {
 
-        // ✅ OPRAVA – stejné jmenovatele
+        // ✅ SPRÁVNÉ SČÍTÁNÍ
         let jmen = b * i;
 
         let cit1 = 1;
@@ -59,34 +59,34 @@ function generuj() {
 
         priklad = cit1 + "/" + jmen + " + " + cit2 + "/" + jmen;
 
-} else if (rezim === "mix") {
+      } else if (rezim === "mix") {
 
-  let jmen = b * i;
+        let jmen = b * i;
 
-  if (Math.random() < 0.5) {
+        if (Math.random() < 0.5) {
 
-    // ✅ SČÍTÁNÍ OK
-    let cit1 = 1;
-    let cit2 = (a * i) - 1;
+          // ✅ SČÍTÁNÍ
+          let cit1 = 1;
+          let cit2 = (a * i) - cit1;
 
-    priklad = cit1 + "/" + jmen + " + " + cit2 + "/" + jmen;
+          priklad = cit1 + "/" + jmen + " + " + cit2 + "/" + jmen;
 
-  } else {
+        } else {
 
-    // ✅ OPRAVENÉ ODČÍTÁNÍ
-    let cit2 = 1;
-    let cit1 = (a * i) + cit2;
+          // ✅ OPRAVENÉ ODČÍTÁNÍ
+          let cit2 = 1;
+          let cit1 = (a * i) + cit2;
 
-    priklad = cit1 + "/" + jmen + " - " + cit2 + "/" + jmen;
-  }
-}
+          priklad = cit1 + "/" + jmen + " - " + cit2 + "/" + jmen;
+        }
 
       } else if (rezim === "nasobeni") {
 
+        // ✅ už správné z minula
         if (Math.random() < 0.5) {
-          priklad = a + "/" + (b*i) + " × " + i + "/1";
+          priklad = a + "/" + (b * i) + " × " + i + "/1";
         } else {
-          priklad = (a*i) + "/" + b + " ÷ " + i + "/1";
+          priklad = (a * i) + "/" + b + " ÷ " + i + "/1";
         }
       }
 
