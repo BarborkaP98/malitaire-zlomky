@@ -59,24 +59,27 @@ function generuj() {
 
         priklad = cit1 + "/" + jmen + " + " + cit2 + "/" + jmen;
 
-      } else if (rezim === "mix") {
+} else if (rezim === "mix") {
 
-        let jmen = b * i;
+  let jmen = b * i;
 
-        if (Math.random() < 0.5) {
+  if (Math.random() < 0.5) {
 
-          let cit1 = 1;
-          let cit2 = (a * i) - cit1;
+    // ✅ SČÍTÁNÍ OK
+    let cit1 = 1;
+    let cit2 = (a * i) - 1;
 
-          priklad = cit1 + "/" + jmen + " + " + cit2 + "/" + jmen;
+    priklad = cit1 + "/" + jmen + " + " + cit2 + "/" + jmen;
 
-        } else {
+  } else {
 
-          let cit1 = a * i;
-          let cit2 = Math.floor(cit1 / 2);
+    // ✅ OPRAVENÉ ODČÍTÁNÍ
+    let cit2 = 1;
+    let cit1 = (a * i) + cit2;
 
-          priklad = cit1 + "/" + jmen + " - " + cit2 + "/" + jmen;
-        }
+    priklad = cit1 + "/" + jmen + " - " + cit2 + "/" + jmen;
+  }
+}
 
       } else if (rezim === "nasobeni") {
 
