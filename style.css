@@ -121,11 +121,14 @@ button {
 .podpis {
 
   position: fixed;
-  bottom: 5px;
-  right: 10px;
+  bottom: 6px;
+  right: 12px;
 
   font-size: 11px;
   color: rgba(255,255,255,0.5);
+
+  opacity: 0.7;
+  pointer-events: none;
 
 }
 
