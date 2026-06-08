@@ -44,6 +44,7 @@ body {
 
 /* ✅ ZLOMKY (OPRAVENO) */
 .karta {
+  max-width: 100%;
   background: white;
   color: black;
   padding: 10px;
@@ -52,10 +53,17 @@ body {
   cursor: pointer;
   user-select: none;
 
+  
+  width: 100%;               /* ✅ přizpůsobí sloupci */
+  box-sizing: border-box;    /* ✅ nepřeteče */
+
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
+  
+  flex-wrap:wrap;  
+
 }
 
 /* ✅ ZLOMEK */
@@ -64,6 +72,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin: 0 2px;
 }
 
 .horni {
@@ -78,6 +87,7 @@ body {
 
 /* ✅ OPERÁTOR */
 .op {
+  margin:0 2px;
   font-weight: bold;
   display: flex;
   align-items: center;
